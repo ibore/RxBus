@@ -1,12 +1,10 @@
 package me.ibore.rxbus;
 
-
 /**
- * 线程处理类
- * @author wzg 2016/9/21
+ *
+ * Created by gorden on 2016/7/23.
  */
 public enum ThreadMode {
-
     /**
      * current thread
      */
@@ -21,11 +19,5 @@ public enum ThreadMode {
     /**
      * new thread
      */
-    NEW_THREAD,
-
-    /**
-     * io
-     */
-    IO
-
+    NEW_THREAD
 }

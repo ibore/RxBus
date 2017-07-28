@@ -1,12 +1,11 @@
 package me.ibore.rxbus;
 
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- * 数据类
- * @author wzg 2016/9/21
+ *
+ * Created by gorden on 2016/7/23.
  */
 public class SubscriberMethod {
     public Method method;
@@ -14,15 +13,13 @@ public class SubscriberMethod {
     public Class<?> eventType;
     public Object subscriber;
     public int code;
-    public boolean sticky;
 
-    public SubscriberMethod(Object subscriber, Method method, Class<?> eventType, int code, ThreadMode threadMode, boolean sticky ) {
+    public SubscriberMethod(Object subscriber, Method method, Class<?> eventType, int code, ThreadMode threadMode) {
         this.method = method;
         this.threadMode = threadMode;
         this.eventType = eventType;
         this.subscriber = subscriber;
         this.code = code;
-        this.sticky=sticky;
     }
 
 
@@ -32,12 +29,16 @@ public class SubscriberMethod {
      */
     public void invoke(Object o){
         try {
-            method.invoke(subscriber, o);
+            Class[] parameterType = method.getParameterTypes();
+            if(parameterType != null && parameterType.length == 1){
+                method.invoke(subscriber, o);
+            }else if(parameterType == null || parameterType.length == 0){
+                method.invoke(subscriber);
+            }
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
     }
-
 }
